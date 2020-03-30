@@ -1,0 +1,9 @@
+[run]
+omit =
+  apps/*/migrations/*
+  apps/*/tests/*
+  apps/*/__init__.py
+  apps/*/apps.py
+
+[report]
+show_missing = True

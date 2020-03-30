@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block extra_head %}
+    <meta http-equiv="refresh" content="10">
+{% endblock %}
+{% block content %}
+
+{% for process in object_list %}
+    <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">{{ process.date }}</h5>
+    </div>
+    <ul class="list-group">
+        {% for vp in process.videos.all %}
+            <li class="list-group-item">
+                <label class="badge
+                    {% if vp.status == 'success' %} badge-primary
+
+                    {% elif vp.status == 'error' %}
+                    badge-danger
+                    {% else %}
+                    badge-secondary
+                    {% endif %}">{{ vp.status }}</label>
+                    {{ vp.video.name }}
+                {% if  vp.error_message_video %}
+                <label class="badge badge-danger">
+                    {{ vp.error_message_video }}
+                </label>
+                {% endif %}
+                <a href="{{ vp.video.youtube_link }}">{{ vp.video.youtube_link }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endfor %}
+
+{% endblock %}
+{% block extra_js %}
+
+    <script type="text/javascript">
+    console.log(1);
+    </script>
+{% endblock %}

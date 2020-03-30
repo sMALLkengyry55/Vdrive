@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post">
+    <div style="text-align: center">
+        <button type="submit" class="btn btn-success">Upload</button>
+    </div>
+    {% csrf_token %}
+
+        {% with videos=videos %}
+            {% include "partials/video_list.html" %}
+        {% endwith %}
+    <div style="text-align: center">
+        <button type="submit" class="btn btn-success">Upload</button>
+    </div>
+</form>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript">
+        $('.video-preview').click(
+            function (e) {
+                console.log($(this));
+                var isChecked = $(this).find('input').prop('checked');
+                if (!isChecked) {
+                    $(this).find('input').prop('checked', true);
+                    $(this).addClass('video-preview-checked');
+                    $(this).find('.card').addClass('bg-secondary');
+                } else {
+                    $(this).find('input').prop('checked', false);
+                    $(this).removeClass('video-preview-checked');
+                    $(this).find('.card').removeClass('bg-secondary');
+                }
+            }
+        );
+
+    </script>
+{% endblock %}
+

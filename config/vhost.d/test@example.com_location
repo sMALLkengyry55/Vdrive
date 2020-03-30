@@ -1,0 +1,8 @@
+location /media {
+    alias /web/media;
+}
+
+location /static {
+    autoindex on;
+    alias /web/static;
+}

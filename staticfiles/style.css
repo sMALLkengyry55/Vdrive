@@ -1,0 +1,15 @@
+.video-preview-img {
+    height: 200px;
+    width: 300px;
+}
+
+.video-preview {
+    height: 360px;
+    width: 300px;
+
+}
+
+.video-preview .card {
+    height: 300px;
+    overflow: hidden;
+}

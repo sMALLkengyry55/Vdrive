@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">GDRIVE-DOWNLOADER</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'vdrive:imports_list' %}">Imports list</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'vdrive:delete_list' %}">Delete</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row justify-content-center">
+      <div class="col-auto">
+                {% if request.user.is_authenticated %}
+                    {{ request.user|default:"Anon" }}
+
+                    <a href="{% url 'logout' %}" class="btn btn-outline-success my-2 my-sm-0"> Log out </a>
+                {% else %}
+                    <a href="/">Log in</a>
+                {% endif %}
+      </div>
+  </div>
+</nav>
+
+{% if request.user.is_authenticated %}
+{% with scan=request.user.video_scans.last %}
+<div class="alert
+{% if scan.status == "error" %}
+alert-danger
+{% else %}
+alert-info
+{% endif %}
+">
+Your recent scan started at {{ scan.date }}
+{% if scan.status == "success" %}
+    and completed without errors.
+    <button class="btn btn-primary" id="btn-start-scan"> scan now </button>
+{% elif scan.status == "error" %}
+    and failed with error {{ scan.error_message }}
+    <button class="btn btn-primary" id="btn-start-scan"> scan now </button>
+{% else %}
+    and is in progress now.
+{% endif %}
+</div>
+{% endwith %}
+{% endif %}

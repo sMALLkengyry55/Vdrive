@@ -1,0 +1,19 @@
+{% extends "./base_email.html" %}
+
+{% block content %}
+{% load i18n %}
+<tr>
+  <td align="center" style="padding: 50px 0 50px 0;">
+    <h1 class="title" style="font-family: 'Assistant', sans-serif; color: #000000;">
+      {% blocktrans %}Dear{% endblocktrans %} {{ user.get_full_name }}
+    </h1>
+  </td>
+</tr>
+<tr>
+  <td align="center">
+    <h2 class="subtitle" style="font-family: 'Assistant', sans-serif; color: #000000;">
+      {% blocktrans %}You are successfully registered at{% endblocktrans %} Vdrive!
+    </h2>
+  </td>
+</tr>
+{% endblock content %}

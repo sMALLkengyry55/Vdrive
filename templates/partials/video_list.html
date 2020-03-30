@@ -1,0 +1,16 @@
+ <div class="row">
+ {% for video in videos %}
+     <div class="col-md-3 video-preview">
+        <div class="card video-card" style="width: 18rem;">
+            <img class="card-img-top video-preview-img" src="{{ video.thumbnail }}" alt="{{ video.name }}">
+            <div class="card-body">
+                <p class="card-text"><label for="id_{{ video.id }}">
+                    {{ video.name }}  <br> <span class="badge badge-success">{{ video.size }}</span>
+                                           <span class="badge badge-success">{{ video.source_type}}</span>
+                </label> <input type="checkbox" style="display: none" name="{{ video.id }}" id="id_{{ video.id }}"></p>
+
+            </div>
+        </div>
+     </div>
+ {% endfor %}
+</div>

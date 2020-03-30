@@ -1,0 +1,71 @@
+version: '3'
+services:
+  web:
+    restart: unless-stopped
+    build: .
+    env_file:
+      - ./docker_env.env
+      - ./config/env_vars/dev_env.env
+      - ./config/env_vars/db/dev_db.env
+      - ./config.env
+    volumes:
+      - .:/web
+    depends_on:
+      - db
+      - redis
+    expose:
+      - "9001"
+    command:
+      /bin/bash -c "pip install -r requirements_dev.txt; invoke run_it"
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:12.1
+    ports:
+      - "9002:5432"
+    env_file:
+      - ./config/env_vars/db/dev_db.env
+    command: postgres
+
+  redis:
+    image: redis:5
+
+  celery:
+    build: .
+    command:
+      /bin/bash -c "pip install -r requirements_dev.txt; celery -A config.celery worker -l debug -c 2 --pidfile="
+    volumes:
+      - .:/web
+    env_file:
+      - ./docker_env.env
+      - ./config/env_vars/dev_env.env
+      - ./config/env_vars/db/dev_db.env
+      - ./config.env
+    depends_on:
+      - redis
+      - db
+      - web
+
+
+  sphinx:
+    image: atomcream/sphinx
+    expose:
+      - 8001
+    volumes:
+      - .:/docs
+    command:
+      /bin/bash -c "pip install sphinx-autobuild recommonmark; sphinx-autobuild docs/source docs/build -H 0.0.0.0 --poll -p 8001"
+
+  nginx:
+    image: nginx:1.17.6
+    links:
+      - web:web
+      - sphinx:sphinx
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/web
+    ports:
+     - "8000:80"
+    command:
+      /bin/bash -c "nginx -g 'daemon off;'"

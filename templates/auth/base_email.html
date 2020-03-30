@@ -1,0 +1,79 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Vdrive{% endblock title %}</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,  maximum-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+  </head>
+  <body>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      img {
+        display: block;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+      }
+      .title {
+        font-size: 26px;
+      }
+      .subtitle {
+        font-size: 26px;
+      }
+      @media screen and (max-width: 480px) {
+        .title {
+          font-size: 20px;
+        }
+        .subtitle {
+          font-size: 16px;
+        }
+      }
+    </style>
+    <center>
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 900px">
+        <tr>
+          <td background="({{ api_host }}/static/images/image-1.jpg" bgcolor="#d5d6d7" align="center" style="background: url({{ api_host }}/static/images/image-1.jpg) #d5d6d7 no-repeat top center / cover; padding: 50px 20px 50px 20px;">
+            <!--[if gte mso 9]>
+            <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;">
+              <v:fill type="tile" src="{{ api_host }}/static/images/image-1.jpg" color="#d5d6d7" />
+              <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
+            <![endif]-->
+            <table cellpadding="0" cellspacing="0" border="0" align="center" style="background: rgba(255,255,255,.8); max-width: 600px; overflow: hidden; z-index: 1;" class="content">
+              <tr>
+                <td style="padding: 20px;">
+                  <div style="border: 1px solid grey; padding: 20px 15px 40px 15px;">
+                    <table cellpadding="0" cellspacing="0" border="0">
+
+                      {% block content %}{% endblock content %}
+
+                        <p style="font-family: 'Assistant', sans-serif; font-size: 10px; color: #000000;">Claire {% now "Y" %}. {% blocktrans %}All Rights Reserved.{% endblocktrans %}</p>
+                      </td></tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <!--[if gte mso 9]>
+              </v:textbox>
+            </v:rect>
+            <![endif]-->
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>
